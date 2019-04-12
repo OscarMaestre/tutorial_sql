@@ -42,7 +42,7 @@ diccionario["tabla_suministra"]     =get_tabla_formateada( "select * from sumini
 diccionario["ejemplo_from_01"]      =get_tabla_formateada("select * from productos, componentes")
 
 diccionario["select_nombre_proveedores"]=get_tabla_formateada( "select nombreprov from proveedores" )
-
+diccionario["select_nombre_ciudad_proveedores"]=get_tabla_formateada ("select nombreprov, ciudad from proveedores")
 resultado=template.render(diccionario)
 
 print(resultado)
