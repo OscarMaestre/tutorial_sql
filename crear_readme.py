@@ -33,6 +33,10 @@ diccionario=dict()
 
 
 diccionario["tabla_proveedores"]=get_tabla_formateada(CONEXION, "select * from proveedores")
+diccionario["tabla_partes"]=get_tabla_formateada(CONEXION, "select * from partes")
+diccionario["tabla_proyectos"]=get_tabla_formateada(CONEXION, "select * from proyectos")
+diccionario["tabla_suministra"]=get_tabla_formateada(CONEXION, "select * from suministra")
+
 resultado=template.render(diccionario)
 
 print(resultado)
