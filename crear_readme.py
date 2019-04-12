@@ -17,7 +17,7 @@ def get_tabla_formateada(conexion, sql):
     lista_resultados.append(nombres_columnas)
     filas=cursor.fetchall()
     tabla=lista_resultados+filas
-    return tabulate(tabla, headers="firstrow", tablefmt="grid")
+    return tabulate(tabla, headers="firstrow", tablefmt="orgtbl")
         
         
     
