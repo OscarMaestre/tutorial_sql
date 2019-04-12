@@ -75,7 +75,11 @@
 
 <h2>Sintaxis básica</h2>
 
-<p>La sintaxis básica de una sentencia SQL es <code>select &lt;campo1&gt;, &lt;campo2&gt;,...&lt;campon&gt; from &lt;tabla1&gt;, &lt;tabla2&gt;, &lt;tabla3&gt;</code>. Así, si deseamos solo mostrar el nombre de los proveedores podemos hacer:</p>
+<p>La sintaxis básica de una sentencia SQL es <code>select &lt;campo1&gt;, &lt;campo2&gt;,...&lt;campon&gt; from &lt;tabla1&gt;, &lt;tabla2&gt;, &lt;tabla3&gt;</code>. Así, si deseamos solo mostrar el nombre de los proveedores podemos hacer esto:</p>
+
+<p>Consulta <code>select nombreprov from proveedores</code></p>
+
+<p>Resultado:</p>
 
 <p>| nombreprov   |
 |--------------|
@@ -84,3 +88,17 @@
 | Blake        |
 | Clarke       |
 | Adams        |</p>
+
+<p>y si deseamos mostrar el nombre y la ciudad de los proveedores podemos hacer esto:</p>
+
+<p>Consulta <code>select nombreprov, ciudad from proveedores</code></p>
+
+<p>Resultado:</p>
+
+<p>| nombreprov   | ciudad   |
+|--------------|----------|
+| Smith        | Londres  |
+| Jones        | Paris    |
+| Blake        | Paris    |
+| Clarke       | Londres  |
+| Adams        | Atenas   |</p>

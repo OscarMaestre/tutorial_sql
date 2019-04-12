@@ -32,10 +32,14 @@ La tabla suministra
 
 
 
-#SQL
+# SQL
 
-##Sintaxis básica
+## Sintaxis básica
 
-La sintaxis básica de una sentencia SQL es ``select <campo1>, <campo2>,...<campon> from <tabla1>, <tabla2>, <tabla3>``. Así, si deseamos solo mostrar el nombre de los proveedores podemos hacer:
+La sintaxis básica de una sentencia SQL es ``select <campo1>, <campo2>,...<campon> from <tabla1>, <tabla2>, <tabla3>``. Así, si deseamos solo mostrar el nombre de los proveedores podemos hacer esto:
 
 {{select_nombre_proveedores}}
+
+y si deseamos mostrar el nombre y la ciudad de los proveedores podemos hacer esto:
+
+{{select_nombre_ciudad_proveedores}}

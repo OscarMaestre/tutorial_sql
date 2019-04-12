@@ -77,11 +77,19 @@ La tabla suministra
 
 
 
-#SQL
+# SQL
 
-##Sintaxis básica
+## Sintaxis básica
 
-La sintaxis básica de una sentencia SQL es ``select <campo1>, <campo2>,...<campon> from <tabla1>, <tabla2>, <tabla3>``. Así, si deseamos solo mostrar el nombre de los proveedores podemos hacer:
+La sintaxis básica de una sentencia SQL es ``select <campo1>, <campo2>,...<campon> from <tabla1>, <tabla2>, <tabla3>``. Así, si deseamos solo mostrar el nombre de los proveedores podemos hacer esto:
+
+
+Consulta ``select nombreprov from proveedores``
+
+
+
+Resultado:
+
 
 | nombreprov   |
 |--------------|
@@ -90,3 +98,23 @@ La sintaxis básica de una sentencia SQL es ``select <campo1>, <campo2>,...<camp
 | Blake        |
 | Clarke       |
 | Adams        |
+    
+
+y si deseamos mostrar el nombre y la ciudad de los proveedores podemos hacer esto:
+
+
+Consulta ``select nombreprov, ciudad from proveedores``
+
+
+
+Resultado:
+
+
+| nombreprov   | ciudad   |
+|--------------|----------|
+| Smith        | Londres  |
+| Jones        | Paris    |
+| Blake        | Paris    |
+| Clarke       | Londres  |
+| Adams        | Atenas   |
+    

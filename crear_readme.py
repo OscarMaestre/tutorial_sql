@@ -21,6 +21,20 @@ def get_tabla_formateada(sql):
     texto_tabla= tabulate(tabla, headers="firstrow", tablefmt="orgtbl")
     texto_tabla=texto_tabla.replace("+", "|")
     return texto_tabla
+
+def get_resultado_sql(sql):
+    texto="""
+Consulta ``{0}``
+\n\n
+Resultado:\n\n
+{1}
+    """
+    
+    resultado_tabla=get_tabla_formateada(sql)
+    
+    devolver=texto.format(sql, resultado_tabla)
+    
+    return devolver
         
         
     
@@ -39,10 +53,10 @@ diccionario["tabla_proyectos"]      =get_tabla_formateada( "select * from proyec
 diccionario["tabla_suministra"]     =get_tabla_formateada( "select * from suministra")
 
 
-diccionario["ejemplo_from_01"]      =get_tabla_formateada("select * from productos, componentes")
+diccionario["ejemplo_from_01"]      =get_resultado_sql("select * from productos, componentes")
 
-diccionario["select_nombre_proveedores"]=get_tabla_formateada( "select nombreprov from proveedores" )
-diccionario["select_nombre_ciudad_proveedores"]=get_tabla_formateada ("select nombreprov, ciudad from proveedores")
+diccionario["select_nombre_proveedores"]=get_resultado_sql( "select nombreprov from proveedores" )
+diccionario["select_nombre_ciudad_proveedores"]=get_resultado_sql ("select nombreprov, ciudad from proveedores")
 resultado=template.render(diccionario)
 
 print(resultado)
