@@ -1,16 +1,16 @@
-Tutorial de SQL
-============================
-
-Requisitos
-------------------------
+# Tutorial de SQL
 
 
-Tablas
-----------
+## Requisitos
 
 
-Tabla proveedores
-~~~~~~~~~~~~~~~~~~~~~
+
+## Tablas
+
+
+
+### Tabla proveedores
+
 
 La tabla proveedores es la siguiente
 
