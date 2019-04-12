@@ -3,6 +3,7 @@
 
 ## Requisitos
 
+Este tutorial usará ``sqlite3`` para hacer las consultas. Se adjunta el fichero ``base_de_datos.db`` que ya contiene todas las tablas y datos necesarios para hacer las consultas. También se adjunta el ejecutable de SQLite para Windows, en el archivo ``sqlite3.exe``
 
 
 ## Tablas
@@ -37,7 +38,7 @@ La tabla proyectos
 | y1            | Clasificador     | Paris    |
 | y2            | Monitor          | Roma     |
 | y3            | OCR              | Atenas   |
-| y4            | Consola          | *Atenas* |
+| y4            | Consola          | Atenas   |
 | y5            | RAID             | Londres  |
 | y6            | EDS              | Oslo     |
 | y7            | Cinta            | Londres  |
