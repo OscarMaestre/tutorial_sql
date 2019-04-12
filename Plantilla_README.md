@@ -29,3 +29,13 @@ La tabla proyectos
 La tabla suministra
 
 {{tabla_suministra}}
+
+
+
+#SQL
+
+##Sintaxis básica
+
+La sintaxis básica de una sentencia SQL es ``select <campo1>, <campo2>,...<campon> from <tabla1>, <tabla2>, <tabla3>``. Así, si deseamos solo mostrar el nombre de los proveedores podemos hacer:
+
+{{select_nombre_proveedores}}

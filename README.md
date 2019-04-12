@@ -74,3 +74,19 @@ La tabla suministra
 | v5        | p4         | y4            |        800 |
 | v5        | p5         | y4            |        400 |
 | v5        | p6         | y4            |        500 |
+
+
+
+#SQL
+
+##Sintaxis básica
+
+La sintaxis básica de una sentencia SQL es ``select <campo1>, <campo2>,...<campon> from <tabla1>, <tabla2>, <tabla3>``. Así, si deseamos solo mostrar el nombre de los proveedores podemos hacer:
+
+| nombreprov   |
+|--------------|
+| Smith        |
+| Jones        |
+| Blake        |
+| Clarke       |
+| Adams        |
