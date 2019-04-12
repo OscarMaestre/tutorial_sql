@@ -2,7 +2,7 @@
 
 import jinja2
 import sqlite3
-import texttable
+from tabulate import tabulate
 
 
 DB="base_de_datos.db"
@@ -17,10 +17,9 @@ def get_tabla_formateada(conexion, sql):
     lista_resultados.append(nombres_columnas)
     filas=cursor.fetchall()
     tabla=lista_resultados+filas
-    tabla_texto=texttable.Texttable()
-    tabla_texto.add_rows(tabla)
-    
-    return tabla_texto.draw()
+    return tabulate(tabla, headers="firstrow", tablefmt="grid")
+        
+        
     
     
 templateLoader = jinja2.FileSystemLoader(searchpath="./")
