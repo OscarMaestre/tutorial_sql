@@ -16,7 +16,7 @@ La tabla proveedores es la siguiente
 
 
 | numprov   | nombreprov   |   estado | ciudad   |
-|-----------+--------------+----------+----------|
+|-----------|--------------|----------|----------|
 | v1        | Smith        |       20 | Londres  |
 | v2        | Jones        |       10 | Paris    |
 | v3        | Blake        |       30 | Paris    |

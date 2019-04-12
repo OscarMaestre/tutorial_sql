@@ -17,7 +17,9 @@ def get_tabla_formateada(conexion, sql):
     lista_resultados.append(nombres_columnas)
     filas=cursor.fetchall()
     tabla=lista_resultados+filas
-    return tabulate(tabla, headers="firstrow", tablefmt="orgtbl")
+    texto_tabla= tabulate(tabla, headers="firstrow", tablefmt="orgtbl")
+    texto_tabla=texto_tabla.replace("+", "|")
+    return texto_tabla
         
         
     
