@@ -9,7 +9,8 @@ DB="base_de_datos.db"
 CONEXION=sqlite3.connect(DB)
 
 
-def get_tabla_formateada(conexion, sql):
+def get_tabla_formateada(sql):
+    conexion=CONEXION
     cursor=conexion.cursor()
     cursor.execute(sql)
     lista_resultados=[]
@@ -32,10 +33,15 @@ template = templateEnv.get_template(TEMPLATE_FILE)
 diccionario=dict()
 
 
-diccionario["tabla_proveedores"]=get_tabla_formateada(CONEXION, "select * from proveedores")
-diccionario["tabla_partes"]=get_tabla_formateada(CONEXION, "select * from partes")
-diccionario["tabla_proyectos"]=get_tabla_formateada(CONEXION, "select * from proyectos")
-diccionario["tabla_suministra"]=get_tabla_formateada(CONEXION, "select * from suministra")
+diccionario["tabla_proveedores"]    =get_tabla_formateada( "select * from proveedores")
+diccionario["tabla_partes"]         =get_tabla_formateada( "select * from partes")
+diccionario["tabla_proyectos"]      =get_tabla_formateada( "select * from proyectos")
+diccionario["tabla_suministra"]     =get_tabla_formateada( "select * from suministra")
+
+
+diccionario["ejemplo_from_01"]      =get_tabla_formateada("select * from productos, componentes")
+
+diccionario["select_nombre_proveedores"]=get_tabla_formateada( "select nombreprov from proveedores" )
 
 resultado=template.render(diccionario)
 
