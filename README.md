@@ -83,14 +83,6 @@ La tabla suministra
 
 La sintaxis básica de una sentencia SQL es ``select <campo1>, <campo2>,...<campon> from <tabla1>, <tabla2>, <tabla3>``. Así, si deseamos solo mostrar el nombre de los proveedores podemos hacer esto:
 
-
-Consulta ``select nombreprov from proveedores``
-
-
-
-Resultado:
-
-
 | nombreprov   |
 |--------------|
 | Smith        |
@@ -98,17 +90,8 @@ Resultado:
 | Blake        |
 | Clarke       |
 | Adams        |
-    
 
 y si deseamos mostrar el nombre y la ciudad de los proveedores podemos hacer esto:
-
-
-Consulta ``select nombreprov, ciudad from proveedores``
-
-
-
-Resultado:
-
 
 | nombreprov   | ciudad   |
 |--------------|----------|
@@ -117,4 +100,38 @@ Resultado:
 | Blake        | Paris    |
 | Clarke       | Londres  |
 | Adams        | Atenas   |
+
+
+## WHERE
+
+No siempre interesa recuperar todos los resultados de una tabla. Si por ejemplo deseamos que solo aparezcan aquellas filas que cumplan una cierta condición podemos usar WHERE.
+
+
+Supongamos que queremos ver qué partes son rojas. Si examinamos la tabla partes veremos esto (obsérvese que hemos destacado las filas con los resultados que se supone que deben salir):
+
+| numparte   | nombreparte   | color    | peso   | ciudad      |
+|------------|---------------|----------|--------|-------------|
+| **p1**     | **Tuerca**    | **Rojo** | **12** | **Londres** |
+| p2         | Perno         | Verde    | 17     | Paris       |
+| p3         | Tornillo      | Azul     | 17     | Roma        |
+| **p4**     | **Tornillo**  | **Rojo** | **14** | **Londres** |
+| p5         | Leva          | Azul     | 12     | Paris       |
+| **p6**     | **Engranaje** | **Rojo** | **19** | **Londres** |
+
+Así que nuestra consulta con WHERE será así:
+
+
+
+Consulta ``select * from partes where color='Rojo'``
     
+
+
+    Resultado:
+
+
+| numparte   | nombreparte   | color   |   peso | ciudad   |
+|------------|---------------|---------|--------|----------|
+| p1         | Tuerca        | Rojo    |     12 | Londres  |
+| p4         | Tornillo      | Rojo    |     14 | Londres  |
+| p6         | Engranaje     | Rojo    |     19 | Londres  |
+        

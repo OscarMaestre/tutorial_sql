@@ -77,10 +77,6 @@
 
 <p>La sintaxis básica de una sentencia SQL es <code>select &lt;campo1&gt;, &lt;campo2&gt;,...&lt;campon&gt; from &lt;tabla1&gt;, &lt;tabla2&gt;, &lt;tabla3&gt;</code>. Así, si deseamos solo mostrar el nombre de los proveedores podemos hacer esto:</p>
 
-<p>Consulta <code>select nombreprov from proveedores</code></p>
-
-<p>Resultado:</p>
-
 <p>| nombreprov   |
 |--------------|
 | Smith        |
@@ -91,10 +87,6 @@
 
 <p>y si deseamos mostrar el nombre y la ciudad de los proveedores podemos hacer esto:</p>
 
-<p>Consulta <code>select nombreprov, ciudad from proveedores</code></p>
-
-<p>Resultado:</p>
-
 <p>| nombreprov   | ciudad   |
 |--------------|----------|
 | Smith        | Londres  |
@@ -102,3 +94,31 @@
 | Blake        | Paris    |
 | Clarke       | Londres  |
 | Adams        | Atenas   |</p>
+
+<h2>WHERE</h2>
+
+<p>No siempre interesa recuperar todos los resultados de una tabla. Si por ejemplo deseamos que solo aparezcan aquellas filas que cumplan una cierta condición podemos usar WHERE.</p>
+
+<p>Supongamos que queremos ver qué partes son rojas. Si examinamos la tabla partes veremos esto (obsérvese que hemos destacado las filas con los resultados que se supone que deben salir):</p>
+
+<p>| numparte   | nombreparte   | color    | peso   | ciudad      |
+|------------|---------------|----------|--------|-------------|
+| <strong>p1</strong>     | <strong>Tuerca</strong>    | <strong>Rojo</strong> | <strong>12</strong> | <strong>Londres</strong> |
+| p2         | Perno         | Verde    | 17     | Paris       |
+| p3         | Tornillo      | Azul     | 17     | Roma        |
+| <strong>p4</strong>     | <strong>Tornillo</strong>  | <strong>Rojo</strong> | <strong>14</strong> | <strong>Londres</strong> |
+| p5         | Leva          | Azul     | 12     | Paris       |
+| <strong>p6</strong>     | <strong>Engranaje</strong> | <strong>Rojo</strong> | <strong>19</strong> | <strong>Londres</strong> |</p>
+
+<p>Así que nuestra consulta con WHERE será así:</p>
+
+<p>Consulta <code>select * from partes where color='Rojo'</code></p>
+
+<pre><code>Resultado:
+</code></pre>
+
+<p>| numparte   | nombreparte   | color   |   peso | ciudad   |
+|------------|---------------|---------|--------|----------|
+| p1         | Tuerca        | Rojo    |     12 | Londres  |
+| p4         | Tornillo      | Rojo    |     14 | Londres  |
+| p6         | Engranaje     | Rojo    |     19 | Londres  |</p>

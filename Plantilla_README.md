@@ -43,3 +43,18 @@ La sintaxis básica de una sentencia SQL es ``select <campo1>, <campo2>,...<camp
 y si deseamos mostrar el nombre y la ciudad de los proveedores podemos hacer esto:
 
 {{select_nombre_ciudad_proveedores}}
+
+
+## WHERE
+
+No siempre interesa recuperar todos los resultados de una tabla. Si por ejemplo deseamos que solo aparezcan aquellas filas que cumplan una cierta condición podemos usar WHERE.
+
+
+Supongamos que queremos ver qué partes son rojas. Si examinamos la tabla partes veremos esto (obsérvese que hemos destacado las filas con los resultados que se supone que deben salir):
+
+{{tabla_partes_p1_destacado}}
+
+Así que nuestra consulta con WHERE será así:
+
+
+{{ejemplo_where_01}}
