@@ -109,14 +109,14 @@ No siempre interesa recuperar todos los resultados de una tabla. Si por ejemplo 
 
 Supongamos que queremos ver qué partes son rojas. Si examinamos la tabla partes veremos esto (obsérvese que hemos destacado las filas con los resultados que se supone que deben salir):
 
-| numparte   | nombreparte   | color    | peso   | ciudad      |
-|------------|---------------|----------|--------|-------------|
-| **p1**     | **Tuerca**    | **Rojo** | **12** | **Londres** |
-| p2         | Perno         | Verde    | 17     | Paris       |
-| p3         | Tornillo      | Azul     | 17     | Roma        |
-| **p4**     | **Tornillo**  | **Rojo** | **14** | **Londres** |
-| p5         | Leva          | Azul     | 12     | Paris       |
-| **p6**     | **Engranaje** | **Rojo** | **19** | **Londres** |
+| numparte   | nombreparte   | color   | peso   | ciudad    |
+|------------|---------------|---------|--------|-----------|
+| *p1*       | *Tuerca*      | *Rojo*  | *12*   | *Londres* |
+| p2         | Perno         | Verde   | 17     | Paris     |
+| p3         | Tornillo      | Azul    | 17     | Roma      |
+| *p4*       | *Tornillo*    | *Rojo*  | *14*   | *Londres* |
+| p5         | Leva          | Azul    | 12     | Paris     |
+| *p6*       | *Engranaje*   | *Rojo*  | *19*   | *Londres* |
 
 Así que nuestra consulta con WHERE será así:
 

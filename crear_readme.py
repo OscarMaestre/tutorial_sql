@@ -53,7 +53,7 @@ class GestorDB(object):
         return False
     
     def destacar_fila(self, fila):
-        cadena_formato="**{0}**"
+        cadena_formato="*{0}*"
         fila_reformateada=[cadena_formato.format(columna) for columna in fila]
         return fila_reformateada
     
