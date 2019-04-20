@@ -20,12 +20,14 @@
             margin: 0.2em 0;
             border-bottom: 6px solid;
             margin-bottom: 15px;
+            margin-top: 80px;
             padding-bottom: 5px;
         }
         h2{
             margin: 0.2em 0;
             border-bottom: 3px solid;
-            margin-bottom: 10px
+            margin-top: 80px;
+            margin-bottom: 10px;
             padding-bottom: 3px;
         }
         
@@ -34,14 +36,22 @@
         }
         
         div.resultadoconsulta{
-            margin: 4px;
+            margin-top: 80px;
+            margin-bottom: 80px;
         }
-        div.textosql{
+        .textosql{
             font-family: courier;
             font-weight: bold;
         }
         div.resultadosql{
             margin-top: 25px;
+        }
+        div.error{
+            margin-top:25px;
+            margin-bottom: 25px;
+            text-align: center;
+            font-family: courier;
+            font-weight: bold;
         }
         
     </style>
@@ -98,6 +108,40 @@
     
     {{select_nombre_ciudad_proveedores}}
     
+    <h2>FROM</h2>
+    La cláusula <span class="textosql">FROM</span> permite indicar de donde se van a sacar los datos. Sin embargo, a veces puede ocurrir que los datos que necesitemos estén dispersos por distintas tablas. Por ejemplo, supongamos que deseamos saber qué proveedores están en la misma ciudad que algún proyecto.
+    
+    Si miramos los códigos de proveedor y sus ciudades pensaremos en hacer esto por un lado:
+    
+    {{select_cod_prov_ciudad}}
+    
+    <p> y esto por el otro</p>
+    
+    {{select_cod_proyecto_ciudad}}
+    
+    Al pensar de esta manera, pensamos que lo natural es que para sacar la información que nos interese se consiga ejecutando esto:
+    
+    
+    <span class="textosql">select numprov, ciudad, numproyecto, ciudad from proveedores, proyectos</span>
+    
+    pero si lo ejecutamos obtendremos algo parecido a esto
+    
+    <div class="error">
+        Error: ambiguous column name: ciudad
+
+    </div>
+    
+    <p>
+        Esto se debe a que hay una columna que se llama igual en dos tablas distintas por lo que el intérprete de SQL no sabe a cual de las columnas nos referimos. En estos casos se puede poner el nombre de la tabla delante de la columna usando un punto como separador y reescribir la consulta así:
+        
+    </p>
+    {{select_proveedores_proyectos_misma_ciudad_sin_where}}
+    
+    <p>Este resultado nos puede parecer curioso. ¿Por qué muestra filas en las que la ciudad no es igual? Sencillo: porque no se le ha dicho. Cuando ponemos dos o más tablas en el <span class="textosql">FROM</span> lo que hace SQL es <em>mezclar todas las filas de una tabla con todas la demas filas de todas las demás tablas</em>. Así, si en la tabla <span class="textosql">proveedores</span> hay 5 filas y en la tabla <span class="textosql">proyectos</span> hay 7 filas el resultado final serán 7 x 5 = 35 filas. Volveremos a tratar esto un poco más tarde.
+    </p>
+    
+    
+    
     
     <h2> WHERE </h2>
     
@@ -112,7 +156,21 @@
     
     
     {{ejemplo_where_01}}
+    
+    <p>
+        Ahora que sabemos como funcionan las condiciones podemos intentar contestar la pregunta de antes:
+        
+    </p>
+    <p class="textoconsulta">¿qué proveedores están en la misma ciudad que algún proyecto?.</p>
 
+    <p>
+        Ahora que sabemos sacar datos de dos tablas y sabemos como construir condiciones podemos usar una consulta como la siguiente
+    </p>
+    
+    {{select_proveedores_proyectos_misma_ciudad_con_where}}
+    
+    que efectivamente sí consigue recuperar lo que necesitábamos.
+    
 
 
 <!--Fin del contenedor principal-->

@@ -20,12 +20,14 @@
             margin: 0.2em 0;
             border-bottom: 6px solid;
             margin-bottom: 15px;
+            margin-top: 80px;
             padding-bottom: 5px;
         }
         h2{
             margin: 0.2em 0;
             border-bottom: 3px solid;
-            margin-bottom: 10px
+            margin-top: 80px;
+            margin-bottom: 10px;
             padding-bottom: 3px;
         }
         
@@ -34,14 +36,22 @@
         }
         
         div.resultadoconsulta{
-            margin: 4px;
+            margin-top: 80px;
+            margin-bottom: 80px;
         }
-        div.textosql{
+        .textosql{
             font-family: courier;
             font-weight: bold;
         }
         div.resultadosql{
             margin-top: 25px;
+        }
+        div.error{
+            margin-top:25px;
+            margin-bottom: 25px;
+            text-align: center;
+            font-family: courier;
+            font-weight: bold;
         }
         
     </style>
@@ -92,11 +102,70 @@
     
     <p>La sintaxis básica de una sentencia SQL es ``select campo1, campo2,...campon from tabla1, tabla2, tabla3``. Así, si deseamos solo mostrar el nombre de los proveedores podemos hacer esto:</p>
     
-    <table class='table'><thead><tr><th>nombreprov</th></tr></thead><tbody><tr><td>Smith</td></tr><tr><td>Jones</td></tr><tr><td>Blake</td></tr><tr><td>Clarke</td></tr><tr><td>Adams</td></tr></tbody></table>
+    
+<div class="resultadoconsulta">
+    <div class="textosql">select nombreprov from proveedores</div>
+    <div class="resultadosql">Resultado:<br/><table class='table'><thead><tr><th>nombreprov</th></tr></thead><tbody><tr><td>Smith</td></tr><tr><td>Jones</td></tr><tr><td>Blake</td></tr><tr><td>Clarke</td></tr><tr><td>Adams</td></tr></tbody></table></div>
+</div>
+        
     
     <p>y si deseamos mostrar el nombre y la ciudad de los proveedores podemos hacer esto:</p>
     
-    <table class='table'><thead><tr><th>nombreprov</th><th>ciudad</th></tr></thead><tbody><tr><td>Smith</td><td>Londres</td></tr><tr><td>Jones</td><td>Paris</td></tr><tr><td>Blake</td><td>Paris</td></tr><tr><td>Clarke</td><td>Londres</td></tr><tr><td>Adams</td><td>Atenas</td></tr></tbody></table>
+    
+<div class="resultadoconsulta">
+    <div class="textosql">select nombreprov, ciudad from proveedores</div>
+    <div class="resultadosql">Resultado:<br/><table class='table'><thead><tr><th>nombreprov</th><th>ciudad</th></tr></thead><tbody><tr><td>Smith</td><td>Londres</td></tr><tr><td>Jones</td><td>Paris</td></tr><tr><td>Blake</td><td>Paris</td></tr><tr><td>Clarke</td><td>Londres</td></tr><tr><td>Adams</td><td>Atenas</td></tr></tbody></table></div>
+</div>
+        
+    
+    <h2>FROM</h2>
+    La cláusula <span class="textosql">FROM</span> permite indicar de donde se van a sacar los datos. Sin embargo, a veces puede ocurrir que los datos que necesitemos estén dispersos por distintas tablas. Por ejemplo, supongamos que deseamos saber qué proveedores están en la misma ciudad que algún proyecto.
+    
+    Si miramos los códigos de proveedor y sus ciudades pensaremos en hacer esto por un lado:
+    
+    
+<div class="resultadoconsulta">
+    <div class="textosql">select numprov, ciudad from proveedores</div>
+    <div class="resultadosql">Resultado:<br/><table class='table'><thead><tr><th>numprov</th><th>ciudad</th></tr></thead><tbody><tr><td>v1</td><td>Londres</td></tr><tr><td>v2</td><td>Paris</td></tr><tr><td>v3</td><td>Paris</td></tr><tr><td>v4</td><td>Londres</td></tr><tr><td>v5</td><td>Atenas</td></tr></tbody></table></div>
+</div>
+        
+    
+    <p> y esto por el otro</p>
+    
+    
+<div class="resultadoconsulta">
+    <div class="textosql">select numproyecto, ciudad from proyectos</div>
+    <div class="resultadosql">Resultado:<br/><table class='table'><thead><tr><th>numproyecto</th><th>ciudad</th></tr></thead><tbody><tr><td>y1</td><td>Paris</td></tr><tr><td>y2</td><td>Roma</td></tr><tr><td>y3</td><td>Atenas</td></tr><tr><td>y4</td><td>Atenas</td></tr><tr><td>y5</td><td>Londres</td></tr><tr><td>y6</td><td>Oslo</td></tr><tr><td>y7</td><td>Londres</td></tr></tbody></table></div>
+</div>
+        
+    
+    Al pensar de esta manera, pensamos que lo natural es que para sacar la información que nos interese se consiga ejecutando esto:
+    
+    
+    <span class="textosql">select numprov, ciudad, numproyecto, ciudad from proveedores, proyectos</span>
+    
+    pero si lo ejecutamos obtendremos algo parecido a esto
+    
+    <div class="error">
+        Error: ambiguous column name: ciudad
+
+    </div>
+    
+    <p>
+        Esto se debe a que hay una columna que se llama igual en dos tablas distintas por lo que el intérprete de SQL no sabe a cual de las columnas nos referimos. En estos casos se puede poner el nombre de la tabla delante de la columna usando un punto como separador y reescribir la consulta así:
+        
+    </p>
+    
+<div class="resultadoconsulta">
+    <div class="textosql">select numprov, proveedores.ciudad, numproyecto, proyectos.ciudad from proveedores, proyectos</div>
+    <div class="resultadosql">Resultado:<br/><table class='table'><thead><tr><th>numprov</th><th>ciudad</th><th>numproyecto</th><th>ciudad</th></tr></thead><tbody><tr><td>v1</td><td>Londres</td><td>y1</td><td>Paris</td></tr><tr><td>v1</td><td>Londres</td><td>y2</td><td>Roma</td></tr><tr><td>v1</td><td>Londres</td><td>y3</td><td>Atenas</td></tr><tr><td>v1</td><td>Londres</td><td>y4</td><td>Atenas</td></tr><tr><td>v1</td><td>Londres</td><td>y5</td><td>Londres</td></tr><tr><td>v1</td><td>Londres</td><td>y6</td><td>Oslo</td></tr><tr><td>v1</td><td>Londres</td><td>y7</td><td>Londres</td></tr><tr><td>v2</td><td>Paris</td><td>y1</td><td>Paris</td></tr><tr><td>v2</td><td>Paris</td><td>y2</td><td>Roma</td></tr><tr><td>v2</td><td>Paris</td><td>y3</td><td>Atenas</td></tr><tr><td>v2</td><td>Paris</td><td>y4</td><td>Atenas</td></tr><tr><td>v2</td><td>Paris</td><td>y5</td><td>Londres</td></tr><tr><td>v2</td><td>Paris</td><td>y6</td><td>Oslo</td></tr><tr><td>v2</td><td>Paris</td><td>y7</td><td>Londres</td></tr><tr><td>v3</td><td>Paris</td><td>y1</td><td>Paris</td></tr><tr><td>v3</td><td>Paris</td><td>y2</td><td>Roma</td></tr><tr><td>v3</td><td>Paris</td><td>y3</td><td>Atenas</td></tr><tr><td>v3</td><td>Paris</td><td>y4</td><td>Atenas</td></tr><tr><td>v3</td><td>Paris</td><td>y5</td><td>Londres</td></tr><tr><td>v3</td><td>Paris</td><td>y6</td><td>Oslo</td></tr><tr><td>v3</td><td>Paris</td><td>y7</td><td>Londres</td></tr><tr><td>v4</td><td>Londres</td><td>y1</td><td>Paris</td></tr><tr><td>v4</td><td>Londres</td><td>y2</td><td>Roma</td></tr><tr><td>v4</td><td>Londres</td><td>y3</td><td>Atenas</td></tr><tr><td>v4</td><td>Londres</td><td>y4</td><td>Atenas</td></tr><tr><td>v4</td><td>Londres</td><td>y5</td><td>Londres</td></tr><tr><td>v4</td><td>Londres</td><td>y6</td><td>Oslo</td></tr><tr><td>v4</td><td>Londres</td><td>y7</td><td>Londres</td></tr><tr><td>v5</td><td>Atenas</td><td>y1</td><td>Paris</td></tr><tr><td>v5</td><td>Atenas</td><td>y2</td><td>Roma</td></tr><tr><td>v5</td><td>Atenas</td><td>y3</td><td>Atenas</td></tr><tr><td>v5</td><td>Atenas</td><td>y4</td><td>Atenas</td></tr><tr><td>v5</td><td>Atenas</td><td>y5</td><td>Londres</td></tr><tr><td>v5</td><td>Atenas</td><td>y6</td><td>Oslo</td></tr><tr><td>v5</td><td>Atenas</td><td>y7</td><td>Londres</td></tr></tbody></table></div>
+</div>
+        
+    
+    <p>Este resultado nos puede parecer curioso. ¿Por qué muestra filas en las que la ciudad no es igual? Sencillo: porque no se le ha dicho. Cuando ponemos dos o más tablas en el <span class="textosql">FROM</span> lo que hace SQL es <em>mezclar todas las filas de una tabla con todas la demas filas de todas las demás tablas</em>. Así, si en la tabla <span class="textosql">proveedores</span> hay 5 filas y en la tabla <span class="textosql">proyectos</span> hay 7 filas el resultado final serán 7 x 5 = 35 filas. Volveremos a tratar esto un poco más tarde.
+    </p>
+    
+    
     
     
     <h2> WHERE </h2>
@@ -114,10 +183,29 @@
     
 <div class="resultadoconsulta">
     <div class="textosql">select * from partes where color='Rojo'</div>
-    <div class="resultadosql">Resultado de la consulta:<br/><table class='table'><thead><tr><th>numparte</th><th>nombreparte</th><th>color</th><th>peso</th><th>ciudad</th></tr></thead><tbody><tr><td>p1</td><td>Tuerca</td><td>Rojo</td><td>12</td><td>Londres</td></tr><tr><td>p4</td><td>Tornillo</td><td>Rojo</td><td>14</td><td>Londres</td></tr><tr><td>p6</td><td>Engranaje</td><td>Rojo</td><td>19</td><td>Londres</td></tr></tbody></table></div>
+    <div class="resultadosql">Resultado:<br/><table class='table'><thead><tr><th>numparte</th><th>nombreparte</th><th>color</th><th>peso</th><th>ciudad</th></tr></thead><tbody><tr><td>p1</td><td>Tuerca</td><td>Rojo</td><td>12</td><td>Londres</td></tr><tr><td>p4</td><td>Tornillo</td><td>Rojo</td><td>14</td><td>Londres</td></tr><tr><td>p6</td><td>Engranaje</td><td>Rojo</td><td>19</td><td>Londres</td></tr></tbody></table></div>
 </div>
         
+    
+    <p>
+        Ahora que sabemos como funcionan las condiciones podemos intentar contestar la pregunta de antes:
+        
+    </p>
+    <p class="textoconsulta">¿qué proveedores están en la misma ciudad que algún proyecto?.</p>
 
+    <p>
+        Ahora que sabemos sacar datos de dos tablas y sabemos como construir condiciones podemos usar una consulta como la siguiente
+    </p>
+    
+    
+<div class="resultadoconsulta">
+    <div class="textosql">select numprov, proveedores.ciudad, numproyecto, proyectos.ciudad from proveedores, proyectos where proveedores.ciudad=proyectos.ciudad</div>
+    <div class="resultadosql">Resultado:<br/><table class='table'><thead><tr><th>numprov</th><th>ciudad</th><th>numproyecto</th><th>ciudad</th></tr></thead><tbody><tr><td>v1</td><td>Londres</td><td>y5</td><td>Londres</td></tr><tr><td>v1</td><td>Londres</td><td>y7</td><td>Londres</td></tr><tr><td>v2</td><td>Paris</td><td>y1</td><td>Paris</td></tr><tr><td>v3</td><td>Paris</td><td>y1</td><td>Paris</td></tr><tr><td>v4</td><td>Londres</td><td>y5</td><td>Londres</td></tr><tr><td>v4</td><td>Londres</td><td>y7</td><td>Londres</td></tr><tr><td>v5</td><td>Atenas</td><td>y3</td><td>Atenas</td></tr><tr><td>v5</td><td>Atenas</td><td>y4</td><td>Atenas</td></tr></tbody></table></div>
+</div>
+        
+    
+    que efectivamente sí consigue recuperar lo que necesitábamos.
+    
 
 
 <!--Fin del contenedor principal-->

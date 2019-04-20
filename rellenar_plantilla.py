@@ -107,7 +107,7 @@ class GestorDB(object):
         texto="""
 <div class="resultadoconsulta">
     <div class="textosql">{0}</div>
-    <div class="resultadosql">Resultado de la consulta:<br/>{1}</div>
+    <div class="resultadosql">Resultado:<br/>{1}</div>
 </div>
         """
         
@@ -147,6 +147,16 @@ def generar_readme():
     diccionario["tabla_partes_p1_destacado"]        =gestor_db.get_tabla_resaltada("select * from partes",
                                                                                    "select * from partes where color='Rojo'")
     diccionario["ejemplo_where_01"]                 =gestor_db.get_resultados_sql_formateados("select * from partes where color='Rojo'")
+    
+    diccionario["select_cod_prov_ciudad"]           =gestor_db.get_resultados_sql_formateados("select numprov, ciudad from proveedores")
+    diccionario["select_cod_proyecto_ciudad"]       =gestor_db.get_resultados_sql_formateados("select numproyecto, ciudad from proyectos")
+    
+    diccionario["select_proveedores_proyectos_misma_ciudad_sin_where"]=gestor_db.get_resultados_sql_formateados(
+        "select numprov, proveedores.ciudad, numproyecto, proyectos.ciudad from proveedores, proyectos")
+    
+    diccionario["select_proveedores_proyectos_misma_ciudad_con_where"]=gestor_db.get_resultados_sql_formateados(
+        "select numprov, proveedores.ciudad, numproyecto, proyectos.ciudad from proveedores, proyectos "+
+        "where proveedores.ciudad=proyectos.ciudad")
     
     resultado=template.render(diccionario)
     
