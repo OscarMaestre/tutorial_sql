@@ -29,6 +29,27 @@ class GestorDB(object):
         texto_tabla=texto_tabla.replace("+", "|")
         return texto_tabla
     
+    
+    def get_celdas_fila(self, fila, marca_html="td", con_destacado=False):
+        celda="<{1}>{0}</{1}>"
+        if con_destacado:
+            celda="<{1} class='celdadestacada'>{0}</{1}>"
+        lista_celdas=[celda.format(campo, marca_html) for campo in fila]
+        celdas_html="".join(lista_celdas)
+        celdas_html="<tr>"+celdas_html+"</tr>"
+        return celdas_html
+    
+    def get_filas_como_tabla_html(self, filas):
+        total_filas=len(filas)
+        tabla="<table class='table'><thead>{0}</thead><tbody>{1}</tbody></table>"
+        celdas_cabecera=self.get_celdas_fila(filas[0], marca_html="th")
+        
+        celdas_datos=""
+        for pos in range(1, total_filas):
+            celdas_datos+=self.get_celdas_fila(filas[pos])
+        tabla_final=tabla.format(celdas_cabecera, celdas_datos)
+        return tabla_final
+        
     def get_nombres_columnas_ultimo_sql(self):
         nombres_columnas = tuple([descripcion[0] for descripcion in self.cursor.description])
         return nombres_columnas
@@ -42,7 +63,7 @@ class GestorDB(object):
         
         tabla_resultados=lista_resultados+filas
         
-        tabla_markdown=self.get_filas_como_tabla_markdown(tabla_resultados)
+        tabla_markdown=self.get_filas_como_tabla_html(tabla_resultados)
         return tabla_markdown
     
     def fila_aparece_en_tabla_resultados(self, fila, tabla_resultados):
@@ -54,6 +75,11 @@ class GestorDB(object):
     
     def destacar_fila(self, fila):
         cadena_formato="*{0}*"
+        fila_reformateada=[cadena_formato.format(columna) for columna in fila]
+        return fila_reformateada
+    
+    def destacar_fila_html(self, fila):
+        cadena_formato="<span class='celdadestacada'>{0}</span>"
         fila_reformateada=[cadena_formato.format(columna) for columna in fila]
         return fila_reformateada
     
@@ -71,18 +97,18 @@ class GestorDB(object):
         for pos in range(0, len(filas1)):
             fila=filas1[pos]
             if self.fila_aparece_en_tabla_resultados(fila, filas2):
-                filas_resultado.append(self.destacar_fila(fila))
+                filas_resultado.append(self.destacar_fila_html(fila))
             else:
                 filas_resultado.append(fila)
-        tabla_markdown=self.get_filas_como_tabla_markdown(filas_resultado)
+        tabla_markdown=self.get_filas_como_tabla_html(filas_resultado)
         return tabla_markdown
     
     def get_resultados_sql_formateados(self, sql):
         texto="""
-Consulta ``{0}``
-    \n\n
-    Resultado:\n\n
-{1}
+<div class="resultadoconsulta">
+    <div class="textosql">{0}</div>
+    <div class="resultadosql">Resultado de la consulta:<br/>{1}</div>
+</div>
         """
         
         resultado_tabla=self.get_resultados_sql(sql)
@@ -92,40 +118,6 @@ Consulta ``{0}``
         return devolver
             
         
-
-def get_resultados_sql(sql):
-    
-    filas=get_filas(sql)
-    lista_resultados=[]
-    nombres_columnas = tuple([descripcion[0] for descripcion in cursor.description])
-    lista_resultados.append(nombres_columnas)
-    
-    tabla=lista_resultados+filas
-    texto_tabla= tabulate(tabla, headers="firstrow", tablefmt="orgtbl")
-    texto_tabla=texto_tabla.replace("+", "|")
-    return texto_tabla
-
-
-
-
-
-
-    
-
-
-def get_resultados_sql(sql):
-    texto="""
-Consulta ``{0}``
-\n\n
-Resultado:\n\n
-{1}
-    """
-    
-    resultado_tabla=gestor_db.get_resultados_sql(sql)
-    
-    devolver=texto.format(sql, resultado_tabla)
-    
-    return devolver
         
         
     
@@ -136,7 +128,7 @@ def generar_readme():
     
     templateLoader = jinja2.FileSystemLoader(searchpath="./")
     templateEnv = jinja2.Environment(loader=templateLoader)
-    TEMPLATE_FILE = "Plantilla_README.md"
+    TEMPLATE_FILE = "Plantilla_index.html"
     
     template = templateEnv.get_template(TEMPLATE_FILE)
     diccionario=dict()
@@ -150,8 +142,8 @@ def generar_readme():
     
     diccionario["ejemplo_from_01"]                  =gestor_db.get_resultados_sql("select * from productos, componentes")
     
-    diccionario["select_nombre_proveedores"]        =gestor_db.get_resultados_sql( "select nombreprov from proveedores" )
-    diccionario["select_nombre_ciudad_proveedores"] =gestor_db.get_resultados_sql ("select nombreprov, ciudad from proveedores")
+    diccionario["select_nombre_proveedores"]        =gestor_db.get_resultados_sql_formateados( "select nombreprov from proveedores" )
+    diccionario["select_nombre_ciudad_proveedores"] =gestor_db.get_resultados_sql_formateados ("select nombreprov, ciudad from proveedores")
     diccionario["tabla_partes_p1_destacado"]        =gestor_db.get_tabla_resaltada("select * from partes",
                                                                                    "select * from partes where color='Rojo'")
     diccionario["ejemplo_where_01"]                 =gestor_db.get_resultados_sql_formateados("select * from partes where color='Rojo'")
