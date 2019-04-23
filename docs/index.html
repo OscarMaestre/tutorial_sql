@@ -206,6 +206,20 @@
     
     que efectivamente sí consigue recuperar lo que necesitábamos.
     
+	<h2>INNER JOIN</h2>
+	
+	Al proceso anterior se le llama "cruzar dos tablas". Se dice que queremos cruzar dos tablas cuando hay datos dispersos pero con un valor en común, que se utiliza para unir dichas tablas. Este proceso es tán común en SQL que tiene su propia palabra clave: <span class="textosql">INNER JOIN</span>.
+	
+	Así, la consulta anterior también puede escribirse así: <span class="textosql"></span>. De hecho, podemos comprobar que obtiene el mismo resultado que la anterior.
+	
+	
+<div class="resultadoconsulta">
+    <div class="textosql">select numprov, proveedores.ciudad, numproyecto, proyectos.ciudad from proveedores inner join proyectos on proveedores.ciudad=proyectos.ciudad;</div>
+    <div class="resultadosql">Resultado:<br/><table class='table'><thead><tr><th>numprov</th><th>ciudad</th><th>numproyecto</th><th>ciudad</th></tr></thead><tbody><tr><td>v1</td><td>Londres</td><td>y5</td><td>Londres</td></tr><tr><td>v1</td><td>Londres</td><td>y7</td><td>Londres</td></tr><tr><td>v2</td><td>Paris</td><td>y1</td><td>Paris</td></tr><tr><td>v3</td><td>Paris</td><td>y1</td><td>Paris</td></tr><tr><td>v4</td><td>Londres</td><td>y5</td><td>Londres</td></tr><tr><td>v4</td><td>Londres</td><td>y7</td><td>Londres</td></tr><tr><td>v5</td><td>Atenas</td><td>y3</td><td>Atenas</td></tr><tr><td>v5</td><td>Atenas</td><td>y4</td><td>Atenas</td></tr></tbody></table></div>
+</div>
+        
+	
+	
 
 
 <!--Fin del contenedor principal-->

@@ -158,6 +158,16 @@ def generar_readme():
         "select numprov, proveedores.ciudad, numproyecto, proyectos.ciudad from proveedores, proyectos "+
         "where proveedores.ciudad=proyectos.ciudad")
     
+    
+    diccionario["select_proveedores_proyectos_misma_ciudad_con_where"]=gestor_db.get_resultados_sql_formateados(
+        "select numprov, proveedores.ciudad, numproyecto, proyectos.ciudad from proveedores, proyectos "+
+        "where proveedores.ciudad=proyectos.ciudad")
+    
+    diccionario["ejemplo_inner_join_01"]=gestor_db.get_resultados_sql_formateados(
+        "select numprov, proveedores.ciudad, numproyecto, proyectos.ciudad from proveedores inner join proyectos"+
+        " on proveedores.ciudad=proyectos.ciudad;")
+    
+
     resultado=template.render(diccionario)
     
     print(resultado)
